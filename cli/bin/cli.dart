@@ -14,11 +14,17 @@ void main(List<String> arguments) {
     printUsage();
   }
 }
-void searchWikipedia(List<String>? arguments) async { 
-  final String? articleTitle;
+void searchWikipedia(List<String>? arguments) async {
+  final String articleTitle;
+
   if (arguments == null || arguments.isEmpty) {
     print('Please provide an article title.');
-    articleTitle = stdin.readLineSync(); 
+    final inputFromStdin = stdin.readLineSync(); // Read input
+    if (inputFromStdin == null || inputFromStdin.isEmpty) {
+      print('No article title provided. Exiting.');
+      return; 
+    }
+    articleTitle = inputFromStdin;
   } else {
     articleTitle = arguments.join(' ');
   }
@@ -27,6 +33,7 @@ void searchWikipedia(List<String>? arguments) async {
   print('Here ya go!');
   print('(Pretend this is an article about "$articleTitle")');
 }
+
 void printUsage() { 
   print(
     "The following commands are valid: 'help', 'version', 'search <ARTICLE-TITLE>'"
