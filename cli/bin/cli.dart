@@ -10,7 +10,9 @@ void main(List<String> arguments) {
     printUsage();
   }
 }
-
+void searchWikipedia(List<String>? arguments) { 
+  print('searchWikipedia received arguments: $arguments');
+}
 void printUsage() { 
   print(
     "The following commands are valid: 'help', 'version', 'search <ARTICLE-TITLE>'"
