@@ -1,3 +1,13 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:test/test.dart';
+import 'package:wikipedia/src/model/article.dart';
+import 'package:wikipedia/src/model/search_results.dart';
+import 'package:wikipedia/src/model/summary.dart';
+
+import 'wikipedia_test.dart';
+
 void main() {
   group('deserialize example JSON responses from wikipedia API', () {
     test('deserialize Dart Programming Language page summary example data from '

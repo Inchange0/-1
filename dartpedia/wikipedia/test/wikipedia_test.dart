@@ -1,3 +1,5 @@
+import 'package:wikipedia/wikipedia.dart';
+import 'package:test/test.dart';
 import 'dart:convert';
 import 'dart:io';
 
@@ -9,3 +11,10 @@ import 'package:wikipedia/src/model/summary.dart';
 const String dartLangSummaryJson = './test/test_data/dart_lang_summary.json';
 const String catExtractJson = './test/test_data/cat_extract.json';
 const String openSearchResponse = './test/test_data/open_search_response.json';
+
+
+void main() {
+  test('calculate', () {
+    expect(calculate(), 42);
+  });
+}
