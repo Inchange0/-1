@@ -28,6 +28,17 @@ class SearchCommand extends Command {
 
   @override
   FutureOr<String> run(ArgResults args) async {
-    
+    if (requiresArgument &&
+        (args.commandArg == null || args.commandArg!.isEmpty)) {
+      return 'Please include a search term';
+    }
+
+    final buffer = StringBuffer('Search results:');
+    final SearchResults results = await search(args.commandArg!);
+
+    for (var result in results.results) {
+      buffer.writeln('${result.title} - ${result.url}');
+    }
+    return buffer.toString();
   }
 }
