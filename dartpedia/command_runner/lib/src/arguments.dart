@@ -111,3 +111,32 @@ abstract class Command extends Argument {
   }
 }
 
+class ArgResults {
+  Command? command;
+  String? commandArg;
+  Map<Option, Object?> options = {};
+
+  bool flag(String name) {
+    for (var option in options.keys.where(
+      (option) => option.type == OptionType.flag,
+    )) {
+      if (option.name == name) {
+        return options[option] as bool;
+      }
+    }
+    return false;
+  }
+
+  bool hasOption(String name) {
+    return options.keys.any((option) => option.name == name);
+  }
+
+  ({Option option, Object? input}) getOption(String name) {
+    var mapEntry = options.entries.firstWhere(
+      (entry) => entry.key.name == name || entry.key.abbr == name,
+    );
+
+    return (option: mapEntry.key, input: mapEntry.value);
+  }
+}
+
