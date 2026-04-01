@@ -1,4 +1,4 @@
-import 'dart:collection'; // New import
+import 'dart:collection'; 
 import '../command_runner.dart';
 
 
@@ -65,5 +65,10 @@ abstract class Command extends Argument {
 
   @override
   String? valueHelp;
+  
+  final List<Option> _options = [];
+
+  UnmodifiableSetView<Option> get options =>
+      UnmodifiableSetView(_options.toSet());
 }
 
