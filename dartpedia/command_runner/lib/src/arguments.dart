@@ -101,5 +101,13 @@ abstract class Command extends Argument {
       ),
     );
   }
+
+
+  FutureOr<Object?> run(ArgResults args);
+
+  @override
+  String get usage {
+    return '$name:  $description';
+  }
 }
 
