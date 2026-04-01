@@ -9,5 +9,14 @@ void main() {
       final Summary summary = Summary.fromJson(pageSummaryMap);
       expect(summary.titles.canonical, 'Dart_(programming_language)');
     });
+
+    test('deserialize Cat article example data from json file into '
+        'an Article object', () async {
+      final String articleJson = await File(catExtractJson).readAsString();
+      final Map<String, Object?> articleMap =
+          jsonDecode(articleJson) as Map<String, Object?>;
+      final List<Article> articles = Article.listFromJson(articleMap);
+      expect(articles.first.title.toLowerCase(), 'cat');
+    });
   });
 }
