@@ -65,10 +65,40 @@ abstract class Command extends Argument {
 
   @override
   String? valueHelp;
-  
+
   final List<Option> _options = [];
 
   UnmodifiableSetView<Option> get options =>
       UnmodifiableSetView(_options.toSet());
+  void addFlag(String name, {String? help, String? abbr, String? valueHelp}) {
+    _options.add(
+      Option(
+        name,
+        help: help,
+        abbr: abbr,
+        defaultValue: false,
+        valueHelp: valueHelp,
+        type: OptionType.flag,
+      ),
+    );
+  }  
+   void addOption(
+    String name, {
+    String? help,
+    String? abbr,
+    String? defaultValue,
+    String? valueHelp,
+  }) {
+    _options.add(
+      Option(
+        name,
+        help: help,
+        abbr: abbr,
+        defaultValue: defaultValue,
+        valueHelp: valueHelp,
+        type: OptionType.option,
+      ),
+    );
+  }
 }
 
