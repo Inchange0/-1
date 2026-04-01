@@ -40,24 +40,38 @@ class SearchCommand extends Command {
     }
 
     final buffer = StringBuffer('Search results:');
-    final SearchResults results = await search(args.commandArg!);
+    try {
+      final SearchResults results = await search(args.commandArg!);
 
-    if (args.flag('im-feeling-lucky')) {
-      final title = results.results.first.title;
-      final Summary article = await getArticleSummaryByTitle(title);
-      buffer.writeln('Lucky you!');
-      buffer.writeln(article.titles.normalized.titleText);
-      if (article.description != null) {
-        buffer.writeln(article.description);
+      if (args.flag('im-feeling-lucky')) {
+        final title = results.results.first.title;
+        final Summary article = await getArticleSummaryByTitle(title);
+        buffer.writeln('Lucky you!');
+        buffer.writeln(article.titles.normalized.titleText);
+        if (article.description != null) {
+          buffer.writeln(article.description);
+        }
+        buffer.writeln(article.extract);
+        buffer.writeln();
+        buffer.writeln('All results:');
       }
-      buffer.writeln(article.extract);
-      buffer.writeln();
-      buffer.writeln('All results:');
-    }
 
-    for (var result in results.results) {
-      buffer.writeln('${result.title} - ${result.url}');
+      for (var result in results.results) {
+        buffer.writeln('${result.title} - ${result.url}');
+      }
+      return buffer.toString();
+    } on HttpException catch (e) {
+      logger
+        ..warning(e.message)
+        ..warning(e.uri)
+        ..info(usage);
+      return e.message;
+    } on FormatException catch (e) {
+      logger
+        ..warning(e.message)
+        ..warning(e.source)
+        ..info(usage);
+      return e.message;
     }
-    return buffer.toString();
   }
 }
